@@ -11,12 +11,14 @@ public class UserService(ILogger logger) {
 	public UserDto RegisterStudent(string firstName, string lastName, string studentNumber) {
 		var user = new UserStudent(firstName, lastName, studentNumber);
 		m_users.Add(user.Id, user);
+		m_logger.LogTrace($"User (student) {lastName} added");
 		return user.DTO();
 	}
 
 	public UserDto RegisterEmployee(string firstName, string lastName) {
 		var user = new UserEmployee(firstName, lastName);
 		m_users.Add(user.Id, user);
+		m_logger.LogTrace($"User (employee) {lastName} added");
 		return user.DTO();
 	}
 
