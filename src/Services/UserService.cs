@@ -1,4 +1,5 @@
 using Tmp.Models;
+using Tmp.Services.Logging;
 
 namespace Tmp.Services;
 
