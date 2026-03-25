@@ -1,3 +1,4 @@
+using Tmp.Exceptions;
 using Tmp.Models;
 using Tmp.Services;
 using Tmp.Services.Logging;
@@ -27,7 +28,21 @@ public static class Program {
 		var deviceKanoniczny = deviceService.AddDevice(() => new DeviceCamera("Kanoniczny EOS 550D", DeviceCamera.Kind.DSLR));
 		deviceService.AddDevice(() => new DeviceCamera("Natychmiastx KWADRAT SQ1", DeviceCamera.Kind.Film));
 
-		leaseService.BeginLease(userMariuszLagocki, deviceKanoniczny, new DateTime(2026, 02, 14), new DateTime(2026, 02, 16));
-		leaseService.BeginLease(userMariuszLagocki, deviceKanoniczny, new DateTime(2026, 02, 15), new DateTime(2026, 02, 19));
+		var lease = leaseService.BeginLease(userMariuszLagocki, deviceKanoniczny, new DateTime(2026, 02, 14), new DateTime(2026, 02, 16));
+
+		try {
+			leaseService.BeginLease(userMariuszLagocki, deviceKanoniczny, new DateTime(2026, 02, 15), new DateTime(2026, 02, 19));
+		} catch(LeaseInvalidException) {
+			// ignore
+		}
+
+		leaseService.EndLease(lease, new DateTime(2026, 02, 18));
+
+		lease = leaseService.BeginLease(userKoLega, deviceMyslBloczek, new DateTime(2026, 03, 10), new DateTime(2026, 03, 14));
+		leaseService.EndLease(lease, new DateTime(2026, 03, 14));
+
+		leaseService.LogAllLeases();
+		userService.LogAllUsers();
+		deviceService.LogAllDevices();
 	}
 }
