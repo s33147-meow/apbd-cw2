@@ -25,4 +25,11 @@ public class UserService(ILogger logger) {
 	public User GetUser(UserDto user) {
 		return m_users[user.Id];
 	}
+
+	public void LogAllUsers() {
+		m_logger.LogInfo("Users  ------------------------------------------------");
+		foreach(var l in m_users.Values) {
+			m_logger.LogInfo("\t" + l);
+		}
+	}
 }

@@ -27,4 +27,10 @@ public class DeviceService(ILogger logger) {
 		return d.DTO();
 	}
 
+	internal void LogAllDevices() {
+		m_logger.LogInfo("Devices ------------------------------------------------");
+		foreach(var l in m_devices.Values) {
+			m_logger.LogInfo("\t" + l);
+		}
+	}
 }

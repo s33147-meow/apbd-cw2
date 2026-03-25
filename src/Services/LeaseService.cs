@@ -54,10 +54,18 @@ public class LeaseService(ILogger logger, UserService users, DeviceService devic
 	}
 
 	public bool IsLeased(DeviceDto device, DateTime when) {
-		return m_leases.Any(lease => when > lease.Value.Start && when < (lease.Value.Return ?? DateTime.MaxValue));
+		return m_leases.Any(lease => when >= lease.Value.Start && when <= (lease.Value.Return ?? DateTime.MaxValue));
 	}
 
 	public IEnumerable<LeaseDto> FindUserLeases(UserDto user) {
 		return m_leases.Where(lease => lease.Value.User == user).Select(lease => lease.Value.DTO());
+	}
+
+	public void LogAllLeases() {
+		var leaseList = m_leases.Values.OrderBy(l => l.Start);
+		m_logger.LogInfo("Leases ------------------------------------------------");
+		foreach(var l in leaseList) {
+			m_logger.LogInfo("\t" + l);
+		}
 	}
 }
