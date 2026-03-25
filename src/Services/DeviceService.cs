@@ -17,4 +17,11 @@ public class DeviceService {
 		return m_devices[dto.Id];
 	}
 
+	public DeviceDto SetDeviceState(DeviceDto device, DeviceState state) {
+		var d = GetDevice(device);
+		d.State = state;
+		m_logger.LogTrace($"Device {device.Name} is now {state}");
+		return d.DTO();
+	}
+
 }
