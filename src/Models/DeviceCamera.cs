@@ -8,4 +8,8 @@ public class DeviceCamera(string name, DeviceCamera.Kind kind) : Device(name) {
 
 	public Kind CameraKind {get; set;} = kind;
 
+	public override string ToString() {
+		return base.ToString() + $"| Kind = {CameraKind}";
+	}
+
 }

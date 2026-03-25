@@ -9,4 +9,8 @@ public abstract class User(string firstName, string lastName) {
 	public abstract int LeaseMax {get;}
 
 	public UserDto DTO() => new UserDto(Id, $"{LastName} {FirstName}");
+
+	public override string ToString() {
+		return $"User {FirstName + ' ' + LastName, 30} ({GetType().Name})";
+	}
 }

@@ -9,4 +9,8 @@ public class DeviceLaptop(string name, DeviceLaptop.OS os, bool dgpu) : Device(n
 
 	public OS OperatingSystem {get; set;} = os;
 	public bool DedicatedGpu {get; set;} = dgpu;
+
+	public override string ToString() {
+		return base.ToString() + $"| OS = {OperatingSystem}; Dedicated GPU = {DedicatedGpu}";
+	}
 }

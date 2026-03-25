@@ -10,4 +10,8 @@ public abstract class Device(string name) {
 	public DeviceDto DTO() {
 		return new DeviceDto(Id, Name);
 	}
+
+	public override string ToString() {
+		return $"Device {Name, 60} ({GetType().Name, 15}) {State, 30} ";
+	}
 }
